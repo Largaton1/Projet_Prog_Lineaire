@@ -11,7 +11,7 @@ def optimisation(demandes, cout_stockage, cout_approv):
     prob = LpProblem(name='Cabines', sense=LpMinimize)
 
     n = len(demandes)
-    BigM = sum(demandes)
+
 
     comm = LpVariable.dicts("Commandes", range(n), lowBound=0, cat='Continuous')
     stock = LpVariable.dicts("Stocks", range(n + 1), lowBound=0, cat='Continuous')
@@ -20,7 +20,7 @@ def optimisation(demandes, cout_stockage, cout_approv):
     prob += lpSum(cout_stockage * stock[i] for i in range(1, n + 1)) + \
             lpSum(cout_approv * comm[i] for i in range(n))
     
-    prob += stock[0] == 0
+    
     for i in range(n):
         prob += stock[i] + comm[i] - demandes[i] == stock[i + 1]
         prob += comm [i] <= 10000 * approv[i]
@@ -52,7 +52,7 @@ def optimisation(demandes, cout_stockage, cout_approv):
 
     for i in range(n):
         mois = i
-        approvisionnement = approv[i].varValue if approv[i].varValue == 1.0 else 0.0
+        approvisionnement = comm[i].varValue if approv[i].varValue == 1.0 else 0.0
         stocks = stock[i+1].varValue
         commandes = comm[i].varValue
         vDemandes = demandes[i]
