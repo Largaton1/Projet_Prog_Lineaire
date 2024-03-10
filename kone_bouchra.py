@@ -85,18 +85,21 @@ def optimisation(demandes, cout_stockage, cout_approv):
     print(f'Number variables: {prob.numVariables()}')
     print(f'Number constraints: {prob.numConstraints()}')
     print()
-   
 
-  
     print('Time:')
     print(f'- (real) {prob.solutionTime}')
     print(f'- (CPU) {prob.solutionCpuTime}')
-   
-
+    print ()
     print(f'Solve status: {LpStatus[prob.status]}')
     print(f'Objective value: {prob.objective.value()}')
-
+    print ()
+    print('Données dentrées')
+    print(f'demandes : {demandes}')
+    print(f'coût dapprovisionnement : {cout_approv}')
+    print(f'coût de stock: {cout_stockage}')
+    print ()
     print(f'Valeur de la stratégie optimale : {pulp.value(prob.objective)}')
+    print ()
     print('Description de la stratégie optimale :')
     print('-' * 80)
     print('| Mois | Approvisionnement | Stock | Commandes | Demandes |')
